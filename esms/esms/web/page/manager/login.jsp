@@ -19,6 +19,9 @@
 <script language='javascript' src='jquery/jquery-3.2.1.min.js'></script>
 <script language='javascript' src='jquery/jquery-3.2.1.min.js'></script>
 <script language='javascript' src='bootstrap/js/bootstrap.min.js'></script>
+
+<script language="javascript" src="bootstrap/js/bootbox.min.js"></script>
+
 <style type="text/css">
 body {
 	background: url(image/background.jpg) no-repeat;
@@ -36,6 +39,13 @@ body {
 </style>
 </head>
 <body>
+	<%
+		String loginInfo = (String) request.getAttribute("loginInfo");
+		if (loginInfo == null) {
+			loginInfo = "";
+		}
+	%>
+	<input type="hidden" id="loginInfo" value="<%=loginInfo%>" />
 	<div class="container-fluid" style="margin-top: 5%;">
 		<div class="row">
 			<div class="offset-2 col-md-8 text-center">
@@ -47,23 +57,40 @@ body {
 				<form class="form form-horizontal">
 					<div class="form-group"></div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="账　号">
-						<i class="fa fa-user"></i>
+						<input type="text" id="account" class="form-control"
+							placeholder="账　号"> <i class="fa fa-user"></i>
 					</div>
 					<div class="form-group help">
-						<input type="password" class="form-control" id="inputPassword3"
-							placeholder="密　码"> <i class="fa fa-lock"></i> <a href="#"
-							class="fa fa-question-circle"></a>
+						<input type="password" id="password" class="form-control"
+							id="inputPassword3" placeholder="密　码"> <i
+							class="fa fa-lock"></i> <a href="#" class="fa fa-question-circle"></a>
 					</div>
 					<div class="form-group text-right">
-						<button type="submit" class="btn btn-primary">登录</button>
+						<button type="button" onclick="login()" class="btn btn-primary">登录</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-<script type="text/javascript">
+	<script type="text/javascript">
+		// 判断是否需要在登陆页面给提示
+		$(document).ready(function() {
+			var loginInfo = $("#loginInfo").val();
+			if (loginInfo != "") {
 
-</script> 
+				bootbox.alert(loginInfo);
+
+				$("#loginInfo").val("");
+			}
+		});
+
+		// 登陆校验
+		function login() {
+			var account = $("#account").val();
+			var password = $("#password").val();
+			window.location.href = "/esms/manager/login_check?account="
+					+ account + "&password=" + password;
+		}
+	</script>
 </body>
 </html>

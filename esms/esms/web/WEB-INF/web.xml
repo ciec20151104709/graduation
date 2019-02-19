@@ -11,6 +11,34 @@
   	<url-pattern>/manager/login_page</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>LoginCheck</servlet-name>
+  	<servlet-class>servlet.manager.LoginCheckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginCheck</servlet-name>
+  	<url-pattern>/manager/login_check</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>MainPageServlet</servlet-name>
+  	<servlet-class>servlet.manager.MainPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MainPageServlet</servlet-name>
+  	<url-pattern>/manager/main_page</url-pattern>
+  </servlet-mapping>
+  
+  
+  <filter>  
+    <filter-name>LoginFilter</filter-name>  
+    <filter-class>filter.manager.LoginFilter</filter-class>  
+    </filter>  
+    <filter-mapping>  
+    <filter-name>LoginFilter</filter-name>  
+    <url-pattern>/manager/*</url-pattern>  
+  </filter-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
