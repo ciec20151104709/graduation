@@ -21,8 +21,8 @@ public class LoginCheckServlet extends HttpServlet {
 		
 		// 对数据库进行查询
 		UserDB userDB = new UserDB();
-		Map<String, String> admin = userDB.getAdminByAccountAndPassword(account, password);
-		if (admin != null) {
+		boolean success = userDB.adminLoginCheck(account, password);
+		if (success) {
 			// 设置session信息
 			req.getSession().setAttribute("m_userid", account);
 			// 登陆成功
