@@ -7,6 +7,6 @@
 <title>title</title>
 </head>
 <body>
-<h1>测试页面</h1>
+<h1>电子超市管理系统</h1>
 </body>
 </html>

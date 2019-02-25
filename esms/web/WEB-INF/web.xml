@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>esms</display-name>
+  
+  <servlet>
+  	<servlet-name>LoginPage</servlet-name>
+  	<servlet-class>servlet.manager.LoginPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginPage</servlet-name>
+  	<url-pattern>/manager/login_page</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>LoginCheck</servlet-name>
+  	<servlet-class>servlet.manager.LoginCheckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginCheck</servlet-name>
+  	<url-pattern>/manager/login_check</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>MainPageServlet</servlet-name>
+  	<servlet-class>servlet.manager.MainPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MainPageServlet</servlet-name>
+  	<url-pattern>/manager/main_page</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>GoodsListServlet</servlet-name>
+  	<servlet-class>servlet.manager.GoodsListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GoodsListServlet</servlet-name>
+  	<url-pattern>/manager/goods_list</url-pattern>
+  </servlet-mapping>
+  
+  <filter>  
+    <filter-name>LoginFilter</filter-name>  
+    <filter-class>filter.manager.LoginFilter</filter-class>  
+    </filter>  
+    <filter-mapping>  
+    <filter-name>LoginFilter</filter-name>  
+    <url-pattern>/manager/*</url-pattern>  
+  </filter-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
