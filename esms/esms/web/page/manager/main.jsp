@@ -16,6 +16,8 @@
 
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"
 	type="text/css" />
+<link rel="stylesheet" href="css/manager/style.css"
+	type="text/css" />
 
 <script language='javascript' src='jquery/jquery-3.2.1.min.js'></script>
 <script language='javascript' src='jquery/jquery-3.2.1.min.js'></script>
@@ -23,12 +25,12 @@
 
 <style type="text/css">
 html {
-	position: relative;
-	min-height: 100%;
+	height:100%;
 }
 
 body {
-	margin-bottom: 50px;
+	position: relative;
+	height:100%;
 }
 
 .footer {
@@ -71,12 +73,17 @@ body {
 	margin-top: 8px;
 }
 
+.clear-padding {
+	padding: 0;
+}
+
 ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	background-color: #f1f1f1;
+	height:100%;
+	background-color: #F8F8FF;
 }
 
 li a {
@@ -92,8 +99,8 @@ li a:hover {
 }
 
 li a.active {
-    background-color: #4CAF50;
-    color: white;
+	background-color: #4CAF50;
+	color: white;
 }
 
 a:focus {
@@ -115,6 +122,13 @@ a:hover {
 a:visited {
 	text-decoration: none;
 }
+
+#mainFrame {
+	border:0;
+	width:100%;
+	height:100%;
+}
+
 </style>
 
 </head>
@@ -134,16 +148,21 @@ a:visited {
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid mt-2">
-		<div class="row">
-			<div class="col-md-2">
+	<div class="container-fluid mt-2 height90p">
+		<div class="row height100p">
+			<div class="col-md-2 clear-padding">
 				<ul>
-					<li><a class="active" href="#home">订单出货</a></li>
+					<li><a class="active" href="#home">商品管理</a></li>
 					<li><a href="#news">用户管理</a></li>
 					<li><a href="#contact">评价管理</a></li>
+					<li><a href="#news">订单出货</a></li>
 					<li><a href="#about">历史订单</a></li>
+				</ul>
 			</div>
-			<div class="col-md-10">content</div>
+			<div class="col-md-10 clear-padding">
+				<iframe id="mainFrame" name="mainFrame" frameborder="no"
+					scrolling="no" src="manager/goods_list"></iframe>
+			</div>
 		</div>
 	</div>
 	<footer class="footer bg-light">

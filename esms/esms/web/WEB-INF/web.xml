@@ -29,6 +29,61 @@
   	<url-pattern>/manager/main_page</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>GoodsListServlet</servlet-name>
+  	<servlet-class>servlet.manager.GoodsListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GoodsListServlet</servlet-name>
+  	<url-pattern>/manager/goods_list</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>GoodsDeleteServlet</servlet-name>
+  	<servlet-class>servlet.manager.GoodsDeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GoodsDeleteServlet</servlet-name>
+  	<url-pattern>/manager/goods_delete</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>GoodsAddServlet</servlet-name>
+  	<servlet-class>servlet.manager.GoodsAddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GoodsAddServlet</servlet-name>
+  	<url-pattern>/manager/goods_add</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>GoodsEditServlet</servlet-name>
+  	<servlet-class>servlet.manager.GoodsEditServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GoodsEditServlet</servlet-name>
+  	<url-pattern>/manager/goods_edit</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>GoodsSaveServlet</servlet-name>
+  	<servlet-class>servlet.manager.GoodsSaveServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>GoodsSaveServlet</servlet-name>
+  	<url-pattern>/manager/goods_save</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+  	<servlet-name>UploadServlet</servlet-name>
+  	<servlet-class>servlet.UploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UploadServlet</servlet-name>
+  	<url-pattern>/upload</url-pattern>
+  </servlet-mapping>
   
   <filter>  
     <filter-name>LoginFilter</filter-name>  
