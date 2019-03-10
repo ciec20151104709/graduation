@@ -122,6 +122,7 @@ body {
 						<tr>
 							<th width="60px">序号</th>
 							<th>名称</th>
+							<th width="100px">图片</th>
 							<th width="120px">类别</th>
 							<th width="100px">存量</th>
 							<th width="100px">单位</th>
@@ -134,6 +135,7 @@ body {
 								<tr>
 									<td><c:out value="${status.count}" /></td>
 									<td><c:out value="${arr.name}" /></td>
+									<td><img width=30px height=30px src="/upload/<c:out value='${arr.image}' />"/></td>
 									<td><c:out value="${arr.category_name}" /></td>
 									<td><c:out value="${arr.stock}" /></td>
 									<td><c:out value="${arr.unit}" /></td>

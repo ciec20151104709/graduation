@@ -143,7 +143,7 @@ a:visited {
 			</div>
 			<div class="col-md-2 text-right">
 				当前登陆人：<%=user.get("name")%></div>
-			<div class="col-md-1 text-center">
+			<div class="col-md-1 text-center" onclick="loginout()">
 				<img src="image/sign-out.jpg" class="sign-out" />
 			</div>
 		</div>
@@ -151,12 +151,12 @@ a:visited {
 	<div class="container-fluid mt-2 height90p">
 		<div class="row height100p">
 			<div class="col-md-2 clear-padding">
-				<ul>
-					<li><a class="active" href="#home">商品管理</a></li>
-					<li><a href="#news">用户管理</a></li>
-					<li><a href="#contact">评价管理</a></li>
-					<li><a href="#news">订单出货</a></li>
-					<li><a href="#about">历史订单</a></li>
+				<ul id="menu">
+					<li><a class="active" href="javascript:void(0);" onclick="openSrc(this, 'manager/goods_list')">商品管理</a></li>
+					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/bookList.do')">用户管理</a></li>
+					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/bookList.do')">评价管理</a></li>
+					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/bookList.do')">订单出货</a></li>
+					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/bookList.do')">历史订单</a></li>
 				</ul>
 			</div>
 			<div class="col-md-10 clear-padding">
@@ -169,5 +169,21 @@ a:visited {
 	<div class="col-md-12 text-center footer-content">Copyright ©
 		2019 电子超市管理系统 SuperMarket - All Rights Reserved.</div>
 	</footer>
+	<script type="text/javascript">
+		function openSrc(obj, src) {
+			// 抹去其他菜单的样式
+			$("#menu").find("a").removeClass("active");
+			$(obj).addClass("active");
+			
+			$("#mainFrame").attr("src", src);
+			
+		}
+		
+		function loginout() {
+			if(window.confirm("是否要退出？")) {
+				window.location.href = "manager/login_out";
+			}
+		}
+	</script>
 </body>
 </html>

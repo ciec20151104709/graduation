@@ -21,6 +21,15 @@
   </servlet-mapping>
   
   <servlet>
+  	<servlet-name>LoginOut</servlet-name>
+  	<servlet-class>servlet.manager.LoginOutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginOut</servlet-name>
+  	<url-pattern>/manager/login_out</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
   	<servlet-name>MainPageServlet</servlet-name>
   	<servlet-class>servlet.manager.MainPageServlet</servlet-class>
   </servlet>
