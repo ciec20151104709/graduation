@@ -47,5 +47,46 @@ public class UserDB {
 		}
 		return null;
 	}
+	
+	public List<Map<String, String>> getUserList(String name, String account, int page) {
+		//拼接sql语句
+        StringBuilder sql = new StringBuilder();
+        sql.append("select * from user where status = 'normal' and is_admin = 1 ");
+        if (!StringUtils.isNullOrEmpty(name)) {
+            sql.append("and name like '%").append(name).append("%' ");
+        }
+        if (!StringUtils.isNullOrEmpty(account)) {
+            sql.append("and account like '%").append(account).append("%' ");
+        }
+        sql.append(" order by account DESC ");
+        
+        int start = (page-1)*6;
+        sql.append(" limit ").append(start).append(", 6");
+        //调用数据库工具类执行查询
+        DbUtil dbUtil = new DbUtil();
+        return dbUtil.getDataBySql(sql.toString());
+	}
+
+	public int getUserCount(String name, String account) {
+		StringBuilder sql = new StringBuilder();
+        sql.append("select count(*) from user where status = 'normal' and is_admin = 1 ");
+        if (!StringUtils.isNullOrEmpty(name)) {
+            sql.append("and name like '%").append(name).append("%' ");
+        }
+        if (!StringUtils.isNullOrEmpty(account)) {
+            sql.append("and account like '%").append(account).append("%' ");
+        }
+        DbUtil dbUtil = new DbUtil();
+        return dbUtil.getCountBySql(sql.toString());
+	}
+	
+	public boolean deleteUserById(String id) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("update user set status = 'deleted' where id ='").append(id).append("'");
+		
+		DbUtil dbUtil = new DbUtil();
+		int count = dbUtil.executeBySql(sql.toString());
+		return count >= 0 ? true : false;
+	}
 
 }

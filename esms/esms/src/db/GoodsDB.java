@@ -50,7 +50,7 @@ public class GoodsDB {
 	public boolean delGoods(String id) {
 		//拼接sql语句
         StringBuilder sql = new StringBuilder();
-        sql.append("delete from goods where id = '")
+        sql.append("update goods set status='deleted' where id = '")
         	.append(id)
         	.append("'; ");
         //调用数据库工具类执行查询

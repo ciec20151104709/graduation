@@ -97,19 +97,14 @@ body {
 				<div class="col-md-6 offset-6">
 					<form class="form-inline float-right">
 						<div class="form-group">
-							<select id="searchCategoryId"
-								class="form-control form-control-sm">
-								<option value="">全部</option>
-								<c:forEach items="${categoryList}" var="arr">
-									<option value="${arr.id}"
-										<c:if test="${arr.id == categoryId }">selected</c:if>>${arr.name}</option>
-								</c:forEach>
-							</select>
-						</div>
-						<div class="form-group">
-							<input id="searchName" type="text"
+							<input id="name" type="text"
 								class="form-control form-control-sm" placeholder="输入名称搜索"
 								value="${name}" />
+						</div>
+						<div class="form-group">
+							<input id="account" type="text"
+								class="form-control form-control-sm" placeholder="输入账号搜索"
+								value="${account}" />
 						</div>
 						<button type="button" class="btn btn-sm btn-success"
 							id="searchBtn">筛选</button>
@@ -121,29 +116,27 @@ body {
 					<thead>
 						<tr>
 							<th width="60px">序号</th>
-							<th>名称</th>
-							<th width="100px">图片</th>
-							<th width="120px">类别</th>
-							<th width="100px">存量</th>
-							<th width="100px">单位</th>
-							<th width="200px">操作</th>
+							<th width="100px">账号</th>
+							<th width="100px">名称</th>
+							<th width="100px">头像</th>
+							<th width="60px	">性别</th>
+							<th width="100px">手机号</th>
+							<th>地址</th>
+							<th width="100px">操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${goodsList.size() > 0}">
-							<c:forEach items="${goodsList}" var="arr" varStatus="status">
+						<c:if test="${userList.size() > 0}">
+							<c:forEach items="${userList}" var="arr" varStatus="status">
 								<tr>
 									<td><c:out value="${status.count}" /></td>
+									<td><c:out value="${arr.account}" /></td>
 									<td><c:out value="${arr.name}" /></td>
-									<td><img width=30px height=30px src="/upload/<c:out value='${arr.image}' />"/></td>
-									<td><c:out value="${arr.category_name}" /></td>
-									<td><c:out value="${arr.stock}" /></td>
-									<td><c:out value="${arr.unit}" /></td>
+									<td><img width=30px height=30px src="/upload/<c:out value='${arr.avatar}' />"/></td>
+									<td><c:if test="${arr.sex==0}">男</c:if><c:if test="${arr.sex==1}">女</c:if><c:if test="${arr.sex==2}">未知</c:if></td>
+									<td><c:out value="${arr.phone_num}" /></td>
+									<td><c:out value="${arr.address}" /></td>
 									<td>
-										<button onclick="add()" type="button"
-											class="btn btn-success btn-sm">增加</button>
-										<button onclick="edit('${arr.id}')" type="button"
-											class="btn btn-primary btn-sm">编辑</button>
 										<button onclick="del('${arr.id}')" type="button"
 											class="btn btn-danger btn-sm">删除</button>
 									</td>
@@ -152,12 +145,12 @@ body {
 						</c:if>
 					</tbody>
 				</table>
-				<c:if test="${goodsList.size() == 0}">
+				<c:if test="${userList.size() == 0}">
 					<div class="col-md-12 text-center">暂无数据</div>
 				</c:if>
 			</div>
 			<div class="col-md-12">
-				<c:if test="${goodsList.size() > 0}">
+				<c:if test="${userList.size() > 0}">
 					<div class="tcdPageCode float-right"></div>
 				</c:if>
 			</div>
@@ -180,21 +173,17 @@ body {
 	    });
 		
 		function jump() {
-			var categoryId = $("#searchCategoryId").val();
-			var name = $("#searchName").val();
+			var account = $("#account").val();
+			var name = $("#name").val();
 			var page = $("#page").val();
-			window.location.href = "manager/goods_list?categoryId="+categoryId+"&name="+name+"&page="+page;
-		}
-		
-		function edit(id) {
-			window.open("manager/goods_edit?id="+id, "editGoods", "height=400,width=500,top="+(screen.availHeight-500)/2+",left="+(screen.availWidth-500)/2+",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no");
+			window.location.href = "manager/user_list?account="+account+"&name="+name+"&page="+page;
 		}
 		
 		function del(id) {
 			if (window.confirm("确认是否删除？")) {
 				//通过ajax删除
 				$.ajax({
-					url: "manager/goods_delete",
+					url: "manager/user_delete",
 					type: "POST",
 					dataType: "text",
 					data: {
@@ -208,10 +197,6 @@ body {
 				    }
 				});
 			}
-		}
-		
-		function add() {
-			window.open("manager/goods_add", "addGoods", "height=400,width=500,top="+(screen.availHeight-500)/2+",left="+(screen.availWidth-500)/2+",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no");
 		}
 	</script>
 </body>
