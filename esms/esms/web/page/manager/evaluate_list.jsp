@@ -12,7 +12,7 @@
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>人员列表</title>
+<title>评价列表</title>
 
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"
 	type="text/css" />
@@ -84,6 +84,12 @@ body {
 	border-radius: 4px;
 	vertical-align: middle;
 }
+.div-overflow {
+	 text-overflow: ellipsis; /* for IE */  
+    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */  
+    overflow: hidden;  
+    white-space: nowrap;  
+}
 </style>
 </head>
 <body>
@@ -97,14 +103,14 @@ body {
 				<div class="col-md-6 offset-6">
 					<form class="form-inline float-right">
 						<div class="form-group">
-							<input id="name" type="text"
-								class="form-control form-control-sm" placeholder="输入名称搜索"
-								value="${name}" />
+							<input id="goodsName" type="text"
+								class="form-control form-control-sm" placeholder="输入商品名称搜索"
+								value="${goodsName}" />
 						</div>
 						<div class="form-group">
-							<input id="account" type="text"
-								class="form-control form-control-sm" placeholder="输入账号搜索"
-								value="${account}" />
+							<input id="content" type="text"
+								class="form-control form-control-sm" placeholder="输入评价内容搜索"
+								value="${content}" />
 						</div>
 						<button type="button" class="btn btn-sm btn-success"
 							id="searchBtn">筛选</button>
@@ -112,30 +118,30 @@ body {
 				</div>
 			</div>
 			<div class="col-md-12 height70p">
-				<table class="table border-bottom">
+				<table class="table border-bottom" style="table-layout: fixed; ">
 					<thead>
 						<tr>
 							<th width="60px">序号</th>
-							<th width="100px">账号</th>
-							<th width="100px">名称</th>
-							<th width="100px">头像</th>
-							<th width="60px	">性别</th>
-							<th width="100px">手机号</th>
-							<th>地址</th>
+							<th width="100px">评价人</th>
+							<th width="100px">商品名称</th>
+							<th>评价内容</th>
+							<th width="60px	">分数</th>
+							<th width="200px">时间</th>
 							<th width="100px">操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${userList.size() > 0}">
-							<c:forEach items="${userList}" var="arr" varStatus="status">
+						<c:if test="${evaluateList.size() > 0}">
+							<c:forEach items="${evaluateList}" var="arr" varStatus="status">
 								<tr>
 									<td><c:out value="${status.count}" /></td>
-									<td><c:out value="${arr.account}" /></td>
-									<td><c:out value="${arr.name}" /></td>
-									<td><img width=30px height=30px src="/upload/<c:out value='${arr.avatar}' />"/></td>
-									<td><c:if test="${arr.sex==0}">男</c:if><c:if test="${arr.sex==1}">女</c:if><c:if test="${arr.sex==2}">未知</c:if></td>
-									<td><c:out value="${arr.phone_num}" /></td>
-									<td><c:out value="${arr.address}" /></td>
+									<td><c:out value="${arr.user_name}" /></td>
+									<td><c:out value="${arr.goods_name}" /></td>
+									<td class="div-overflow" title="<c:out value="${arr.content}" />"><c:out value="${arr.content}" /></td>
+									<td><c:out value="${arr.score}" /></td>
+									<td>
+										<c:out value="${arr.create_date.substring(0,19)}" />
+									</td>
 									<td>
 										<button onclick="del('${arr.id}')" type="button"
 											class="btn btn-danger btn-sm">删除</button>
@@ -145,12 +151,12 @@ body {
 						</c:if>
 					</tbody>
 				</table>
-				<c:if test="${userList.size() == 0}">
+				<c:if test="${evaluateList.size() == 0}">
 					<div class="col-md-12 text-center">暂无数据</div>
 				</c:if>
 			</div>
 			<div class="col-md-12">
-				<c:if test="${userList.size() > 0}">
+				<c:if test="${evaluateList.size() > 0}">
 					<div class="tcdPageCode float-right"></div>
 				</c:if>
 			</div>
@@ -173,17 +179,17 @@ body {
 	    });
 		
 		function jump() {
-			var account = $("#account").val();
-			var name = $("#name").val();
+			var content = $("#content").val();
+			var goodsName = $("#goodsName").val();
 			var page = $("#page").val();
-			window.location.href = "manager/user_list?account="+account+"&name="+name+"&page="+page;
+			window.location.href = "manager/evaluate_list?content="+content+"&goodsName="+goodsName+"&page="+page;
 		}
 		
 		function del(id) {
 			if (window.confirm("确认是否删除？")) {
 				//通过ajax删除
 				$.ajax({
-					url: "manager/user_delete",
+					url: "manager/evaluate_delete",
 					type: "POST",
 					dataType: "text",
 					data: {

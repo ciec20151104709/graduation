@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mysql.jdbc.StringUtils;
 
-import db.UserDB;
+import db.EvaluateDB;
 
 public class EvaluateListServlet extends HttpServlet {
 
@@ -30,19 +30,19 @@ public class EvaluateListServlet extends HttpServlet {
 		}
 		
 		// 获得商品数据，传递参数
-//		UserDB userDB = new UserDB();
-//		List<Map<String, String>> userList = userDB.getUserList(name, account, page);
-//		req.setAttribute("userList", userList);
-//		// 获得商品总数，生成pageList
-//		int count = userDB.getUserCount(name, account);
-//		int pageCount = count%6 == 0 ? count/6 : count/6+1;
-//		req.setAttribute("pageCount", pageCount);
-//		// 传递当前页数及其他参数
-//		req.setAttribute("page", page);
-//		req.setAttribute("name", name);
-//		req.setAttribute("account", account);
+		EvaluateDB evaluateDB = new EvaluateDB();
+		List<Map<String, String>> evaluateList = evaluateDB.getEvaluateList(content, goodsName, page);
+		req.setAttribute("evaluateList", evaluateList);
+		// 获得商品总数，生成pageList
+		int count = evaluateDB.getEvaluateCount(content, goodsName);
+		int pageCount = count%6 == 0 ? count/6 : count/6+1;
+		req.setAttribute("pageCount", pageCount);
+		// 传递当前页数及其他参数
+		req.setAttribute("page", page);
+		req.setAttribute("content", content);
+		req.setAttribute("goodsName", goodsName);
 		
-		req.getRequestDispatcher("/page/manager/user_list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/page/manager/evaluate_list.jsp").forward(req, resp);
 	}
 	
 }
