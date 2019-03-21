@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.EvaluateDB;
+import db.OrderDB;
 
-public class EvaluateDeleteServlet extends HttpServlet {
+public class OrderPassServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
-		
-		EvaluateDB evaluateDB = new EvaluateDB();
+		OrderDB orderDB = new OrderDB();
 		String result = "ERROR";
-		if (evaluateDB.deleteEvaluateById(id)) {
+		if (orderDB.orderPass(id)) {
 			result = "SUCCESS";
 		}
 		
@@ -30,4 +29,6 @@ public class EvaluateDeleteServlet extends HttpServlet {
         out.close();
 	}
 	
+	
+
 }

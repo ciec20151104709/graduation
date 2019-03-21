@@ -117,6 +117,31 @@
   	<url-pattern>/manager/evaluate_delete</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>OrderListServlet</servlet-name>
+  	<servlet-class>servlet.manager.OrderListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderListServlet</servlet-name>
+  	<url-pattern>/manager/order_list</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>OrderPassServlet</servlet-name>
+  	<servlet-class>servlet.manager.OrderPassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderPassServlet</servlet-name>
+  	<url-pattern>/manager/order_pass</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>OrderRefuseServlet</servlet-name>
+  	<servlet-class>servlet.manager.OrderRefuseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderRefuseServlet</servlet-name>
+  	<url-pattern>/manager/order_refuse</url-pattern>
+  </servlet-mapping>
+  
   
   <servlet>
   	<servlet-name>UploadServlet</servlet-name>

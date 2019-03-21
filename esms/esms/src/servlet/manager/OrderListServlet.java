@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mysql.jdbc.StringUtils;
 
-import db.UserDB;
+import db.OrderDB;
 
-public class UserListServlet extends HttpServlet {
+public class OrderListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,8 +21,7 @@ public class UserListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 获得前台参数
 		String pageStr = req.getParameter("page");
-		String name = req.getParameter("name");
-		String account = req.getParameter("account");
+		String goodsName = req.getParameter("goodsName");
 		
 		int page = 1;
 		if (!StringUtils.isNullOrEmpty(pageStr)) {
@@ -30,19 +29,22 @@ public class UserListServlet extends HttpServlet {
 		}
 		
 		// 获得商品数据，传递参数
-		UserDB userDB = new UserDB();
-		List<Map<String, String>> userList = userDB.getUserList(name, account, page);
-		req.setAttribute("userList", userList);
+		OrderDB orderDB = new OrderDB();
+		List<Map<String, String>> orderList = orderDB.getOrderList(goodsName, page);
+		req.setAttribute("orderList", orderList);
 		// 获得商品总数，生成pageList
-		int count = userDB.getUserCount(name, account);
+		int count = orderDB.getOrderCount(goodsName);
 		int pageCount = count%6 == 0 ? count/6 : count/6+1;
 		req.setAttribute("pageCount", pageCount);
 		// 传递当前页数及其他参数
 		req.setAttribute("page", page);
-		req.setAttribute("name", name);
-		req.setAttribute("account", account);
+		req.setAttribute("goodsName", goodsName);
 		
-		req.getRequestDispatcher("/page/manager/user_list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/page/manager/order_list.jsp").forward(req, resp);
+	
 	}
+
+	
+	
 	
 }

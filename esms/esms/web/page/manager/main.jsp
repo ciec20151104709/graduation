@@ -155,7 +155,7 @@ a:visited {
 					<li><a class="active" href="javascript:void(0);" onclick="openSrc(this, 'manager/goods_list')">商品管理</a></li>
 					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/user_list')">用户管理</a></li>
 					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/evaluate_list')">评价管理</a></li>
-					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/bookList.do')">订单出货</a></li>
+					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/order_list')">订单出货</a></li>
 					<li><a href="javascript:void(0);" onclick="openSrc(this, 'manager/bookList.do')">历史订单</a></li>
 				</ul>
 			</div>
