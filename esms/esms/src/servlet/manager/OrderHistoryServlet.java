@@ -13,7 +13,7 @@ import com.mysql.jdbc.StringUtils;
 
 import db.OrderDB;
 
-public class OrderListServlet extends HttpServlet {
+public class OrderHistoryServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,17 +30,17 @@ public class OrderListServlet extends HttpServlet {
 		
 		// 获得商品数据，传递参数
 		OrderDB orderDB = new OrderDB();
-		List<Map<String, String>> orderList = orderDB.getOrderList(goodsName, page);
+		List<Map<String, String>> orderList = orderDB.getOrderHistoryList(goodsName, page);
 		req.setAttribute("orderList", orderList);
 		// 获得商品总数，生成pageList
-		int count = orderDB.getOrderCount(goodsName);
+		int count = orderDB.getOrderHistoryCount(goodsName);
 		int pageCount = count%6 == 0 ? count/6 : count/6+1;
 		req.setAttribute("pageCount", pageCount);
 		// 传递当前页数及其他参数
 		req.setAttribute("page", page);
 		req.setAttribute("goodsName", goodsName);
 		
-		req.getRequestDispatcher("/page/manager/order_list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/page/manager/order_history.jsp").forward(req, resp);
 	
 	}
 	

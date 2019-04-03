@@ -142,6 +142,15 @@
   	<url-pattern>/manager/order_refuse</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>OrderHistoryServlet</servlet-name>
+  	<servlet-class>servlet.manager.OrderHistoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderHistoryServlet</servlet-name>
+  	<url-pattern>/manager/order_history</url-pattern>
+  </servlet-mapping>
+  
   
   <servlet>
   	<servlet-name>UploadServlet</servlet-name>

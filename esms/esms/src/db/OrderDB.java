@@ -91,4 +91,38 @@ public class OrderDB {
     	return false;
 	}
 	
+	public List<Map<String, String>> getOrderHistoryList(String goodsName, int page) {
+		//拼接sql语句
+        StringBuilder sql = new StringBuilder();
+        sql.append("select o.*, g.goods_name, g.unit, u.user_name from order_form o ")
+        	.append("LEFT JOIN (select id, name as goods_name, unit from goods) g on o.goods_id = g.id ")
+        	.append("LEFT JOIN (select id, name as user_name from user) u on o.user_id = u.id ")
+            .append("where o.status <> 'normal' ");
+        if (!StringUtils.isNullOrEmpty(goodsName)) {
+            sql.append("and g.goods_name like '%").append(goodsName).append("%' ");
+        }
+        sql.append(" order by o.create_date DESC ");
+        
+        int start = (page-1)*6;
+        sql.append(" limit ").append(start).append(", 6");
+        //调用数据库工具类执行查询
+        DbUtil dbUtil = new DbUtil();
+        return dbUtil.getDataBySql(sql.toString());
+	}
+	
+	public int getOrderHistoryCount(String goodsName) {
+		//拼接sql语句
+        StringBuilder sql = new StringBuilder();
+        sql.append("select count(o.id) from order_form o ")
+        	.append("LEFT JOIN (select id, name as goods_name from goods) g on o.goods_id = g.id ")
+        	.append("LEFT JOIN (select id, name as user_name from user) u on o.user_id = u.id ")
+            .append("where o.status <> 'normal' ");
+        if (!StringUtils.isNullOrEmpty(goodsName)) {
+            sql.append("and g.goods_name like '%").append(goodsName).append("%' ");
+        }
+        //调用数据库工具类执行查询
+        DbUtil dbUtil = new DbUtil();
+        return dbUtil.getCountBySql(sql.toString());
+	}
+	
 }
