@@ -105,4 +105,26 @@ public class GoodsDB {
         return null;
 	}
 	
+	public List<Map<String, String>> getUserGoodsList(String name, String category, int page) {
+		//拼接sql语句
+        StringBuilder sql = new StringBuilder();
+        sql.append("select c.category_name, g.* from goods g ")
+        	.append("left join (select id, name as category_name from category) c ")
+        	.append("on g.category_id = c.id ")
+            .append("where g.status = 'normal' ");
+        if (!StringUtils.isNullOrEmpty(name)) {
+            sql.append("and g.name like '%").append(name).append("%' ");
+        }
+        if (!StringUtils.isNullOrEmpty(category)) {
+            sql.append("and g.category_id = '").append(category).append("' ");
+        }
+        sql.append(" order by name DESC ");
+        
+        int start = (page-1)*30;
+        sql.append(" limit ").append(start).append(", 30");
+        //调用数据库工具类执行查询
+        DbUtil dbUtil = new DbUtil();
+        return dbUtil.getDataBySql(sql.toString());
+	}
+	
 }

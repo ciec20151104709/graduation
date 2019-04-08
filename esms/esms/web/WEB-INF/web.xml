@@ -151,6 +151,15 @@
   	<url-pattern>/manager/order_history</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>UserMainPageServlet</servlet-name>
+  	<servlet-class>servlet.user.MainPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserMainPageServlet</servlet-name>
+  	<url-pattern>/user/main_page</url-pattern>
+  </servlet-mapping>
+  
   
   <servlet>
   	<servlet-name>UploadServlet</servlet-name>
