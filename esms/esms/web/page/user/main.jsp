@@ -172,6 +172,11 @@ header span {
 	border-radius: 4px;
 	vertical-align: middle;
 }
+
+.activity {
+	font-weight: bold;
+	font-size:16px;
+}
 </style>
 </head>
 <body>
@@ -208,45 +213,45 @@ header span {
 				</div>
 				<div class="col-md-6">
 					<!-- 操作按钮 -->
-					<ul class="banner-ul">
-						<li class="banner-li"><a class="banner-a" style="color: #000">全部</a>
+					<ul id="banner-ul" class="banner-ul">
+						<li class="banner-li <c:if test='${categoryId == "" }'>activity</c:if>" onclick="changeCategory(this,'')" ><aclass="banner-a" style="color: #000">全部</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">酒饮</a>
+						<li class="banner-li <c:if test='${categoryId == "01" }'>activity</c:if>" onclick="changeCategory(this,'01')"><a class="banner-a" style="color: #000">酒饮</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">洗涤</a>
+						<li class="banner-li <c:if test='${categoryId == "02" }'>activity</c:if>" onclick="changeCategory(this,'02')"><a class="banner-a" style="color: #000">洗涤</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">冲调</a>
+						<li class="banner-li <c:if test='${categoryId == "03" }'>activity</c:if>" onclick="changeCategory(this,'03')"><a class="banner-a" style="color: #000">冲调</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">家居</a>
+						<li class="banner-li <c:if test='${categoryId == "04" }'>activity</c:if>" onclick="changeCategory(this,'04')"><a class="banner-a" style="color: #000">家居</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">休闲</a>
+						<li class="banner-li <c:if test='${categoryId == "05" }'>activity</c:if>" onclick="changeCategory(this,'05')"><a class="banner-a" style="color: #000">休闲</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">文体</a>
+						<li class="banner-li <c:if test='${categoryId == "06" }'>activity</c:if>" onclick="changeCategory(this,'06')"><a class="banner-a" style="color: #000">文体</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">粮油</a>
+						<li class="banner-li <c:if test='${categoryId == "07" }'>activity</c:if>" onclick="changeCategory(this,'07')"><a class="banner-a" style="color: #000">粮油</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">针织</a>
+						<li class="banner-li <c:if test='${categoryId == "08" }'>activity</c:if>" onclick="changeCategory(this,'08')"><a class="banner-a" style="color: #000">针织</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">果鲜</a>
+						<li class="banner-li <c:if test='${categoryId == "09" }'>activity</c:if>" onclick="changeCategory(this,'09')"><a class="banner-a" style="color: #000">果鲜</a>
 						</li>
 						<li class="banner-li">|</li>
-						<li class="banner-li"><a class="banner-a" style="color: #000">家电</a>
+						<li class="banner-li <c:if test='${categoryId == "10" }'>activity</c:if>" onclick="changeCategory(this,'10')"><a class="banner-a" style="color: #000">家电</a>
 						</li>
 					</ul>
 				</div>
 				<div class="col-md-3">
 					<form class="form-inline float-right">
 						<div class="form-group">
-							<input id="content" type="text"
+							<input id="name" type="text"
 								class="form-control form-control-sm" placeholder="输入内容搜索"
 								value="${name }" />
 						</div>
@@ -297,73 +302,30 @@ header span {
 		});
 
 		$(".tcdPageCode").createPage({
-			pageCount :
-	<%=pageCount%>
-		,
-			current :
-	<%=curPage%>
-		,
+			pageCount: <%=pageCount%>,
+			current: <%=curPage%>,
 			backFn : function(p) {
-				$("#page").val(p)
+				$("#page").val(p);
 				jump();
 			}
 		});
 
 		function jump() {
-			var categoryId = $("#searchCategoryId").val();
-			var name = $("#searchName").val();
+			var categoryId = $("#categoryId").val();
+			var name = $("#name").val();
 			var page = $("#page").val();
-			window.location.href = "manager/goods_list?categoryId="
+			window.location.href = "user/main_page?categoryId="
 					+ categoryId + "&name=" + name + "&page=" + page;
 		}
-
-		function edit(id) {
-			window
-					.open(
-							"manager/goods_edit?id=" + id,
-							"editGoods",
-							"height=400,width=500,top="
-									+ (screen.availHeight - 500)
-									/ 2
-									+ ",left="
-									+ (screen.availWidth - 500)
-									/ 2
-									+ ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no");
+		
+		function changeCategory(sel, obj) {
+			$("#categoryId").val(obj);
+			
+			
+			jump();
+			$(sel).attr("class", "banner-li activity");
 		}
 
-		function del(id) {
-			if (window.confirm("确认是否删除？")) {
-				//通过ajax删除
-				$.ajax({
-					url : "manager/goods_delete",
-					type : "POST",
-					dataType : "text",
-					data : {
-						id : id
-					},
-					success : function(ret) {
-						jump();
-					},
-					error : function(res) {
-						alert("删除失败，请重新操作！");
-					}
-				});
-			}
-		}
-
-		function add() {
-			window
-					.open(
-							"manager/goods_add",
-							"addGoods",
-							"height=400,width=500,top="
-									+ (screen.availHeight - 500)
-									/ 2
-									+ ",left="
-									+ (screen.availWidth - 500)
-									/ 2
-									+ ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no");
-		}
 	</script>
 </body>
 </html>

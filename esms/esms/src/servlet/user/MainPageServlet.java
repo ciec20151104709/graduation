@@ -28,6 +28,9 @@ public class MainPageServlet extends HttpServlet {
 		if (!StringUtils.isNullOrEmpty(pageStr)) {
 			page = Integer.parseInt(pageStr);
 		}
+		if (categoryId == null) {
+			categoryId = "";
+		}
 		// 获得商品数据，传递参数
 		GoodsDB goodsDB = new GoodsDB();
 		List<Map<String, String>> goodsList = goodsDB.getUserGoodsList(name, categoryId, page);
