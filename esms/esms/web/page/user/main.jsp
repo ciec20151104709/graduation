@@ -175,7 +175,7 @@ header span {
 
 .activity {
 	font-weight: bold;
-	font-size:16px;
+	font-size: 16px;
 }
 </style>
 </head>
@@ -194,7 +194,17 @@ header span {
 			<div class="col-md-4 float-right height40px">
 				<!-- 操作按钮 -->
 				<ul class="naver-ul float-right">
-					<li class="naver-li"><a class="naver-a">登录</a></li>
+					<c:if test="${loginName != null }">
+						<li class="naver-li">
+						<a class="naver-a" onclick="openLoginPage()">
+							<c:out value="${loginName }"></c:out>
+						</a></li>
+
+					</c:if>
+					<c:if test="${loginName == null }">
+						<li class="naver-li"><a onclick="openLoginPage()"
+							class="naver-a">登录</a></li>
+					</c:if>
 					<li class="naver-li">|</li>
 					<li class="naver-li"><a class="naver-a">注册</a></li>
 					<li class="naver-li">|</li>
@@ -214,46 +224,67 @@ header span {
 				<div class="col-md-6">
 					<!-- 操作按钮 -->
 					<ul id="banner-ul" class="banner-ul">
-						<li class="banner-li <c:if test='${categoryId == "" }'>activity</c:if>" onclick="changeCategory(this,'')" ><aclass="banner-a" style="color: #000">全部</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "" }'>activity</c:if>"
+							onclick="changeCategory(this,'')"><aclass
+								="banner-a" style="color: #000">全部</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "01" }'>activity</c:if>" onclick="changeCategory(this,'01')"><a class="banner-a" style="color: #000">酒饮</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "01" }'>activity</c:if>"
+							onclick="changeCategory(this,'01')"><a class="banner-a"
+							style="color: #000">酒饮</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "02" }'>activity</c:if>" onclick="changeCategory(this,'02')"><a class="banner-a" style="color: #000">洗涤</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "02" }'>activity</c:if>"
+							onclick="changeCategory(this,'02')"><a class="banner-a"
+							style="color: #000">洗涤</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "03" }'>activity</c:if>" onclick="changeCategory(this,'03')"><a class="banner-a" style="color: #000">冲调</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "03" }'>activity</c:if>"
+							onclick="changeCategory(this,'03')"><a class="banner-a"
+							style="color: #000">冲调</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "04" }'>activity</c:if>" onclick="changeCategory(this,'04')"><a class="banner-a" style="color: #000">家居</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "04" }'>activity</c:if>"
+							onclick="changeCategory(this,'04')"><a class="banner-a"
+							style="color: #000">家居</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "05" }'>activity</c:if>" onclick="changeCategory(this,'05')"><a class="banner-a" style="color: #000">休闲</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "05" }'>activity</c:if>"
+							onclick="changeCategory(this,'05')"><a class="banner-a"
+							style="color: #000">休闲</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "06" }'>activity</c:if>" onclick="changeCategory(this,'06')"><a class="banner-a" style="color: #000">文体</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "06" }'>activity</c:if>"
+							onclick="changeCategory(this,'06')"><a class="banner-a"
+							style="color: #000">文体</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "07" }'>activity</c:if>" onclick="changeCategory(this,'07')"><a class="banner-a" style="color: #000">粮油</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "07" }'>activity</c:if>"
+							onclick="changeCategory(this,'07')"><a class="banner-a"
+							style="color: #000">粮油</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "08" }'>activity</c:if>" onclick="changeCategory(this,'08')"><a class="banner-a" style="color: #000">针织</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "08" }'>activity</c:if>"
+							onclick="changeCategory(this,'08')"><a class="banner-a"
+							style="color: #000">针织</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "09" }'>activity</c:if>" onclick="changeCategory(this,'09')"><a class="banner-a" style="color: #000">果鲜</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "09" }'>activity</c:if>"
+							onclick="changeCategory(this,'09')"><a class="banner-a"
+							style="color: #000">果鲜</a></li>
 						<li class="banner-li">|</li>
-						<li class="banner-li <c:if test='${categoryId == "10" }'>activity</c:if>" onclick="changeCategory(this,'10')"><a class="banner-a" style="color: #000">家电</a>
-						</li>
+						<li
+							class="banner-li <c:if test='${categoryId == "10" }'>activity</c:if>"
+							onclick="changeCategory(this,'10')"><a class="banner-a"
+							style="color: #000">家电</a></li>
 					</ul>
 				</div>
 				<div class="col-md-3">
 					<form class="form-inline float-right">
 						<div class="form-group">
-							<input id="name" type="text"
-								class="form-control form-control-sm" placeholder="输入内容搜索"
-								value="${name }" />
+							<input id="name" type="text" class="form-control form-control-sm"
+								placeholder="输入内容搜索" value="${name }" />
 						</div>
 						<button type="button" class="btn btn-sm btn-info" id="searchBtn">搜索</button>
 					</form>
@@ -270,9 +301,11 @@ header span {
 						<div class="col-md-2 height300px" style="padding-top: 10px;">
 							<div class="content-item">
 								<img src="/upload/${arr.image }" width="100%" height="200px" />
-								<div style="height:100px;padding-top:15px;">
-									<div style="width: 100%;text-align: center; color:#000; font-size: 14px;">${arr.name}</div>
-									<div style="width: 100%;text-align: center; color:#ff6700; font-size: 14px;">${arr.stock}${arr.unit}</div>
+								<div style="height: 100px; padding-top: 15px;">
+									<div
+										style="width: 100%; text-align: center; color: #000; font-size: 14px;">${arr.name}</div>
+									<div
+										style="width: 100%; text-align: center; color: #ff6700; font-size: 14px;">${arr.stock}${arr.unit}</div>
 								</div>
 							</div>
 						</div>
@@ -302,8 +335,12 @@ header span {
 		});
 
 		$(".tcdPageCode").createPage({
-			pageCount: <%=pageCount%>,
-			current: <%=curPage%>,
+			pageCount :
+	<%=pageCount%>
+		,
+			current :
+	<%=curPage%>
+		,
 			backFn : function(p) {
 				$("#page").val(p);
 				jump();
@@ -314,18 +351,18 @@ header span {
 			var categoryId = $("#categoryId").val();
 			var name = $("#name").val();
 			var page = $("#page").val();
-			window.location.href = "user/main_page?categoryId="
-					+ categoryId + "&name=" + name + "&page=" + page;
-		}
-		
-		function changeCategory(sel, obj) {
-			$("#categoryId").val(obj);
-			
-			
-			jump();
-			$(sel).attr("class", "banner-li activity");
+			window.location.href = "user/main_page?categoryId=" + categoryId
+					+ "&name=" + name + "&page=" + page;
 		}
 
+		function changeCategory(sel, obj) {
+			$("#categoryId").val(obj);
+			jump();
+		}
+
+		function openLoginPage() {
+			window.open("user/login_page", "loginPage");
+		}
 	</script>
 </body>
 </html>

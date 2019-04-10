@@ -30,6 +30,24 @@ public class UserDB {
 		return false;
 	}
 	
+	public boolean userLoginCheck(String account, String password) {
+		if (StringUtils.isNullOrEmpty(account) || StringUtils.isNullOrEmpty(password)) {
+			return false;
+		}
+		// 拼接sql语句
+		String sql = "select * from user "
+				+ "where account = '" + account + "' "
+				+ "and password = '" + password + "' "
+				+ "and is_admin = 1 "
+				+ "and status='normal'";
+		DbUtil dbUtil = new DbUtil();
+		List<Map<String, String>> adminList = dbUtil.getDataBySql(sql);
+		if (adminList != null && adminList.size() == 1) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * 通过账号获得人员信息
 	 */
@@ -87,6 +105,24 @@ public class UserDB {
 		DbUtil dbUtil = new DbUtil();
 		int count = dbUtil.executeBySql(sql.toString());
 		return count >= 0 ? true : false;
+	}
+
+	public boolean insertUser(String id, String account, String name, String password, String sex, String phoneNum, String address) {
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("insert into user values('")
+			.append(id).append("','")
+			.append(account).append("','")
+			.append(name).append("','")
+			.append(password).append("','")
+			.append(sex).append("','")
+			.append(phoneNum).append("','")
+			.append(address).append("','normal','1')");
+		
+		DbUtil dbUtil = new DbUtil();
+		int count = dbUtil.executeBySql(sql.toString());
+		return count >= 0 ? true : false;
+		
 	}
 
 }

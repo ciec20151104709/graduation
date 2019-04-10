@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.mysql.jdbc.StringUtils;
 
 import db.GoodsDB;
+import db.UserDB;
 
 public class MainPageServlet extends HttpServlet {
 
@@ -43,6 +44,18 @@ public class MainPageServlet extends HttpServlet {
 		req.setAttribute("page", page);
 		req.setAttribute("name", name);
 		req.setAttribute("categoryId", categoryId);
+		
+		// 判断是否session中有登录数据，有则加载人员信息
+		
+		if (req.getSession().getAttribute("u_userid") != null) {
+			// 通过account获得人员信息
+			String account = (String) req.getSession().getAttribute("u_userid");
+			UserDB userDB = new UserDB();
+			Map<String, String> user = userDB.getUserByAccount(account);
+			//获得人员名称
+			String loginName = user.get("name");
+			req.setAttribute("loginName", loginName);
+		}
 
 		req.getRequestDispatcher("/page/user/main.jsp").forward(req, resp);
 	}

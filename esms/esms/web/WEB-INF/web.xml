@@ -160,6 +160,40 @@
   	<url-pattern>/user/main_page</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>UserLoginPageServlet</servlet-name>
+  	<servlet-class>servlet.user.LoginPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserLoginPageServlet</servlet-name>
+  	<url-pattern>/user/login_page</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>UserLoginCheckServlet</servlet-name>
+  	<servlet-class>servlet.user.LoginCheckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserLoginCheckServlet</servlet-name>
+  	<url-pattern>/user/login_check</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>RegisterPageServlet</servlet-name>
+  	<servlet-class>servlet.user.RegisterPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RegisterPageServlet</servlet-name>
+  	<url-pattern>/user/register_page</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<servlet-class>servlet.user.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/user/register</url-pattern>
+  </servlet-mapping>
+  
   
   <servlet>
   	<servlet-name>UploadServlet</servlet-name>
