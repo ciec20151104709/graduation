@@ -193,6 +193,23 @@
   	<servlet-name>RegisterServlet</servlet-name>
   	<url-pattern>/user/register</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>OrderGoodsServlet</servlet-name>
+  	<servlet-class>servlet.user.OrderGoodsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderGoodsServlet</servlet-name>
+  	<url-pattern>/user/order_goods</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>OrderAllListServlet</servlet-name>
+  	<servlet-class>servlet.user.OrderAllListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>OrderAllListServlet</servlet-name>
+  	<url-pattern>/user/order_all_list</url-pattern>
+  </servlet-mapping>
   
   
   <servlet>

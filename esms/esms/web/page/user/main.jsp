@@ -101,9 +101,6 @@ header span {
 }
 
 .content-title {
-	width: 100%;
-	height: 40px;
-	line-height: 40px;
 	color: black;
 	font-weight: bold;
 }
@@ -195,9 +192,8 @@ header span {
 				<!-- 操作按钮 -->
 				<ul class="naver-ul float-right">
 					<c:if test="${loginName != null }">
-						<li class="naver-li">
-						<a class="naver-a" onclick="openLoginPage()">
-							<c:out value="${loginName }"></c:out>
+						<li class="naver-li"><a class="naver-a"
+							onclick="openLoginPage()"> <c:out value="${loginName }"></c:out>
 						</a></li>
 
 					</c:if>
@@ -208,7 +204,9 @@ header span {
 					<li class="naver-li">|</li>
 					<li class="naver-li"><a class="naver-a">注册</a></li>
 					<li class="naver-li">|</li>
-					<li class="naver-li"><a class="naver-a">我的订单</a></li>
+					<li class="naver-li">
+						<a class="naver-a" onclick="showModel()">我的订单</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -293,13 +291,25 @@ header span {
 		</div>
 	</div>
 	<div class="content">
-		<div class="content-title" style="font-size: 22px;">商品展示</div>
+		<div class="container-fluid height40px">
+			<div class="row height40px">
+				<div class="col-md-2 content-title"
+					style="font-size: 22px; line-height: 40px">商品展示</div>
+				<div class="col-md-10 text-right" style="line-height: 40px">
+					<span id="goodsId" value=""></span> <input id="amount"
+						style="height: 30px" type="text" placeholder="数量" />
+					<button type="button" onclick="orderGoods()"
+						class="btn btn-danger btn-sm" style="margin-bottom: 5px;">预定</button>
+				</div>
+			</div>
+		</div>
 		<div class="container-fluid">
 			<div class="row">
 				<c:if test="${goodsList.size() > 0}">
 					<c:forEach items="${goodsList}" var="arr" varStatus="status">
 						<div class="col-md-2 height300px" style="padding-top: 10px;">
-							<div class="content-item">
+							<div class="content-item"
+								onclick="pickGoods('${arr.id}', '${arr.name }');">
 								<img src="/upload/${arr.image }" width="100%" height="200px" />
 								<div style="height: 100px; padding-top: 15px;">
 									<div
@@ -327,7 +337,25 @@ header span {
 		2019 电子超市管理系统 SuperMarket - All Rights Reserved.</div>
 	</footer>
 	<input type="hidden" value="${page}" id="page" />
+	<input type="hidden" value="${loginId}" id="loginId" />
 	<input type="hidden" value="${categoryId}" id="categoryId" />
+
+	<!--模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+				</div>
+				<div id="dialog-content" class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript">
 		$("#searchBtn").click(function() {
 			$("#page").val(1);
@@ -362,6 +390,88 @@ header span {
 
 		function openLoginPage() {
 			window.open("user/login_page", "loginPage");
+		}
+
+		function pickGoods(gid, gname) {
+			$("#goodsId").val(gid);
+			$("#goodsId").html(gname);
+		}
+
+		function orderGoods() {
+			// 判断是否登录
+			var userId = $("#loginId").val();
+			if (userId == "") {
+				alert("请先登录");
+				return;
+			}
+			var id = $("#goodsId").val();
+			var amount = $("#amount").val();
+			if (id == "") {
+				alert("请点击选择商品");
+				return;
+			}
+			//通过ajax保存
+			$.ajax({
+				url : "user/order_goods",
+				type : "POST",
+				dataType : "text",
+				data : {
+					id : id,
+					amount : amount,
+					userId : userId
+				},
+				success : function(ret) {
+					if (ret == "ERROR") {
+						alert("预定失败");
+					} else {
+						alert("预定成功");
+						window.close();
+					}
+				},
+				error : function(res) {
+					alert("预定失败，请重新操作！");
+				}
+			});
+		}
+		
+		function showModel() {
+			// 判断是否登录
+			// 判断是否登录
+			var userId = $("#loginId").val();
+			if (userId == "") {
+				alert("请先登录");
+				return;
+			}
+			//通过ajax保存
+			$.ajax({
+				url : "user/order_all_list",
+				type : "POST",
+				dataType : "text",
+				data : {
+					id : id
+				},
+				success : function(data) {
+					// 获得数据json，并解析
+					var htmlStr = "<table>";
+					$(data).each(function (i, values) {
+						htmlStr +="<tr><td>"+values.bookid+"</td>"
+                            +"<td><a href='getBookByname?name='>"+values.bookname+"</ta></td>"
+                            +"<td>"+values.price+"</td>"
+                            +"<td>"+values.author+"</td>"
+                            +"<td>"+values.pic+"</td>"
+                            +"<td>"+values.publish+"</td></tr>";
+                        
+                    });
+					var htmlStr = "</table>";
+					$("#dialog-content").html(htmlStr);
+					
+					$('#myModal').modal('show');
+				},
+				error : function(res) {
+					alert("获取数据失败，请重新操作！");
+				}
+			});
+			
 		}
 	</script>
 </body>

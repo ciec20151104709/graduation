@@ -124,5 +124,27 @@ public class OrderDB {
         DbUtil dbUtil = new DbUtil();
         return dbUtil.getCountBySql(sql.toString());
 	}
+
+	public boolean insertOrder(String id, String goodsId, String userId, String amount) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("INSERT INTO order_form VALUES ('")
+			.append(id).append("','")
+			.append(goodsId).append("','")
+			.append(userId).append("','")
+			.append(amount).append("', now(), 'normal')");
+		//调用数据库工具类执行查询
+        DbUtil dbUtil = new DbUtil();
+        int count = dbUtil.executeBySql(sql.toString());
+        return count >= 0 ? true : false;
+	}
+
+	public List<Map<String, String>> getAllList(String id) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from order_form where user_id = '")
+			.append(id).append("' order by create_date desc;");
+		//调用数据库工具类执行查询
+        DbUtil dbUtil = new DbUtil();
+        return dbUtil.getDataBySql(sql.toString());
+	}
 	
 }

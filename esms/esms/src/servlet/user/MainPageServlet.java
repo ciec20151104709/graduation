@@ -53,8 +53,8 @@ public class MainPageServlet extends HttpServlet {
 			UserDB userDB = new UserDB();
 			Map<String, String> user = userDB.getUserByAccount(account);
 			//获得人员名称
-			String loginName = user.get("name");
-			req.setAttribute("loginName", loginName);
+			req.setAttribute("loginName", user.get("name"));
+			req.setAttribute("loginId", user.get("id"));
 		}
 
 		req.getRequestDispatcher("/page/user/main.jsp").forward(req, resp);
