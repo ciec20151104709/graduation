@@ -140,7 +140,7 @@ public class OrderDB {
 
 	public List<Map<String, String>> getAllList(String id) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select * from order_form where user_id = '")
+		sql.append("select o.*, g.name, g.unit from order_form o left join goods g on o.goods_id = g.id where o.user_id = '")
 			.append(id).append("' order by create_date desc;");
 		//调用数据库工具类执行查询
         DbUtil dbUtil = new DbUtil();

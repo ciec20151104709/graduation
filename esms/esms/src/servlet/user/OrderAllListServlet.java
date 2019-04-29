@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
+
 import db.OrderDB;
 
 public class OrderAllListServlet extends HttpServlet{
@@ -25,10 +27,7 @@ public class OrderAllListServlet extends HttpServlet{
 		OrderDB orderDB = new OrderDB();
 		List<Map<String, String>> allOrder = orderDB.getAllList(id);
 		
-		
-		String content = "";
-		
-		
+		String content = JSON.toJSONString(allOrder);
 		
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");

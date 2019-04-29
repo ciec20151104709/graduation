@@ -341,21 +341,23 @@ header span {
 	<input type="hidden" value="${categoryId}" id="categoryId" />
 
 	<!--模态框（Modal） -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
-				</div>
-				<div id="dialog-content" class="modal-body"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h5 class="modal-title">我的订单</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="dialog-content" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<script type="text/javascript">
 		$("#searchBtn").click(function() {
 			$("#page").val(1);
@@ -448,21 +450,31 @@ header span {
 				type : "POST",
 				dataType : "text",
 				data : {
-					id : id
+					id : userId
 				},
 				success : function(data) {
+					var obj = eval("("+data+")"); 
 					// 获得数据json，并解析
-					var htmlStr = "<table>";
-					$(data).each(function (i, values) {
-						htmlStr +="<tr><td>"+values.bookid+"</td>"
-                            +"<td><a href='getBookByname?name='>"+values.bookname+"</ta></td>"
-                            +"<td>"+values.price+"</td>"
-                            +"<td>"+values.author+"</td>"
-                            +"<td>"+values.pic+"</td>"
-                            +"<td>"+values.publish+"</td></tr>";
+					var htmlStr = "<table class='table'>"
+					+ "<thead><tr>"
+					+ "<th scope='col'>序号</th>"
+					+ "<th scope='col'>名称</th>"
+					+ "<th scope='col'>数量</th>"
+					+ "<th scope='col'>单位</th>"
+					+ "<th scope='col'>创建时间</th>"
+					+ "<th scope='col'>状态</th></tr></thead>"
+				    
+					for(var key in obj){
+						var values = obj[key]; 
+						htmlStr +="<tr><td>"+key+"</td>"
+							+"<td>"+values.name+"</td>"
+                            +"<td>"+values.amount+"</td>"
+                            +"<td>"+values.unit+"</td>"
+                            +"<td>"+values.create_date.substring(0, 19)+"</td>"
+                            +"<td>"+statusConvert(values.status)+"</td></tr>";
                         
-                    });
-					var htmlStr = "</table>";
+                    };
+					htmlStr += "</table>";
 					$("#dialog-content").html(htmlStr);
 					
 					$('#myModal').modal('show');
@@ -472,6 +484,19 @@ header span {
 				}
 			});
 			
+		}
+		
+		function statusConvert(obj) {
+			if (obj == 'normal') {
+				return "未审核";
+			}
+			if (obj == 'refused') {
+				return "被拒绝";
+			}
+			if (obj == 'passed') {
+				return "已出货";
+			}
+			return "";
 		}
 	</script>
 </body>
